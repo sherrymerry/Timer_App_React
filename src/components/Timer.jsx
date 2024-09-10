@@ -11,12 +11,12 @@ const Timer = () => {
             interval = setInterval(() => {
                 setSeconds((prevSeconds) => prevSeconds + 1);
             }, 1000);
-        } else if (!isActive && seconds !== 0) {
+        } else {
             clearInterval(interval);
         }
 
         return () => clearInterval(interval);
-    }, [isActive, seconds]);
+    }, [isActive]);
 
     const formatTime = (totalSeconds) => {
         const minutes = Math.floor(totalSeconds / 60);
@@ -33,6 +33,11 @@ const Timer = () => {
         setIsActive(false);
     };
 
+    const handleReset = () => {
+        setIsActive(false);
+        setSeconds(0);      
+    };
+
     return (
         <div style={{ textAlign: "center", marginTop: "50px", color: "green", fontSize: "20px" }}>
             <h1>Simple Timer</h1>
@@ -44,7 +49,11 @@ const Timer = () => {
                     Play
                 </button>
                 <button onClick={handleStop} style={{ marginRight: "10px", border: "1px solid grey" }}>
-                    Stop</button>
+                    Stop
+                </button>
+                <button onClick={handleReset} style={{ marginRight: "10px", border: "1px solid grey" }}>
+                    Reset
+                </button>
             </div>
         </div>
     );
